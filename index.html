@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security Deposit Helper — get your deposit back</title>
+  <meta name="description" content="Free tool for renters. See your landlord's deadline to return your security deposit in your state, and write a demand letter in a minute.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Security Deposit Helper</h1>
+      <p class="lede">Find out when your landlord has to return your deposit, and write a letter asking for it back. Free. Nothing you type leaves your browser.</p>
+    </header>
+
+    <form id="form" class="card">
+      <h2>1. Your move-out</h2>
+
+      <label for="state">State where you rented</label>
+      <select id="state" required>
+        <option value="">Choose a state…</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="moveout">Move-out date</label>
+          <input type="date" id="moveout" required>
+        </div>
+        <div>
+          <label for="deposit">Deposit amount ($)</label>
+          <input type="number" id="deposit" min="1" step="0.01" inputmode="decimal" placeholder="1500" required>
+        </div>
+      </div>
+
+      <label for="returned">Amount you've gotten back so far ($) <span class="optional">optional</span></label>
+      <input type="number" id="returned" min="0" step="0.01" inputmode="decimal" placeholder="0">
+
+      <fieldset>
+        <legend>Did your landlord send you a written list of deductions?</legend>
+        <label class="radio"><input type="radio" name="itemized" value="no" checked> No</label>
+        <label class="radio"><input type="radio" name="itemized" value="yes"> Yes</label>
+      </fieldset>
+
+      <button type="submit">Show my deadline</button>
+    </form>
+
+    <section id="result" class="card" hidden aria-live="polite">
+      <h2>2. What the law says in <span id="r-state"></span></h2>
+      <div id="r-status" class="status"></div>
+      <div id="r-flag" class="flag" hidden></div>
+      <dl>
+        <dt>Landlord's deadline</dt>
+        <dd id="r-deadline"></dd>
+        <dt>What they have to send</dt>
+        <dd id="r-itemization"></dd>
+        <dt>If they wrongly keep your deposit</dt>
+        <dd id="r-penalty"></dd>
+        <dt>Interest on your deposit</dt>
+        <dd id="r-interest"></dd>
+        <dt>The law</dt>
+        <dd><span id="r-citation"></span> — <a id="r-source" target="_blank" rel="noopener noreferrer">read it</a></dd>
+      </dl>
+    </section>
+
+    <section id="letter-section" class="card" hidden>
+      <h2>3. Your letter</h2>
+      <p class="hint">Fill in the names and addresses, then copy or download. You can edit the letter directly before sending. Keep a copy, and send it in a way you can prove (certified mail or email).</p>
+
+      <div class="row">
+        <div>
+          <label for="t-name">Your name</label>
+          <input type="text" id="t-name" autocomplete="name">
+        </div>
+        <div>
+          <label for="l-name">Landlord's name</label>
+          <input type="text" id="l-name">
+        </div>
+      </div>
+      <label for="t-addr">Your current mailing address</label>
+      <input type="text" id="t-addr" autocomplete="street-address">
+      <label for="l-addr">Landlord's address</label>
+      <input type="text" id="l-addr">
+      <label for="r-addr">Address of the place you rented</label>
+      <input type="text" id="r-addr">
+
+      <label for="letter">Letter</label>
+      <textarea id="letter" rows="22" spellcheck="true"></textarea>
+
+      <div class="actions">
+        <button type="button" id="copy">Copy letter</button>
+        <button type="button" id="pdf" class="secondary">Download PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>This is general information, not legal advice.</strong> Laws change and have exceptions. Cities and counties may have extra rules. Check your state's current law (linked above) or talk to a local tenant organization or lawyer before you act.</p>
+    <p>No login, no tracking, no data stored. State data last reviewed <span id="reviewed"></span>.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
